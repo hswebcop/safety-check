@@ -94,25 +94,25 @@ main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:24px 16px
 .loc-icon{width:32px;height:32px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--card2);flex-shrink:0}
 .loc-header-name{font-size:15px;font-weight:700}
 .loc-header-count{font-size:11px;color:var(--dim);margin-top:1px}
-.loc-status-btn{display:flex;gap:6px;align-items:center;flex-shrink:0}
-.status-toggle{width:72px;height:34px;border-radius:99px;display:flex;align-items:center;position:relative;cursor:pointer;border:1.5px solid var(--border);background:var(--card2);transition:all .25s;overflow:hidden;flex-shrink:0}
-.status-toggle.is-ok{background:rgba(45,216,129,.15);border-color:var(--green)}
+.loc-status-btn{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.status-label{font-size:12px;font-weight:700;min-width:28px;text-align:right;transition:color .2s;letter-spacing:.02em}
+.status-label.is-ok{color:var(--green)}
+.status-label.is-issue{color:var(--red)}
+.status-toggle{width:52px;height:28px;border-radius:99px;display:flex;align-items:center;position:relative;cursor:pointer;border:2px solid var(--green);background:rgba(45,216,129,.15);transition:all .25s;overflow:hidden;flex-shrink:0}
 .status-toggle.is-issue{background:rgba(255,77,109,.15);border-color:var(--red)}
-.status-toggle .toggle-knob{width:26px;height:26px;border-radius:50%;background:var(--muted);position:absolute;left:3px;transition:all .25s;display:flex;align-items:center;justify-content:center;font-size:13px}
-.status-toggle.is-ok .toggle-knob{background:var(--green);left:41px}
-.status-toggle.is-issue .toggle-knob{background:var(--red);left:3px}
-.toggle-labels{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 7px;font-size:10px;font-weight:700;pointer-events:none}
-.toggle-labels .lbl-ok{color:var(--green);opacity:0;transition:opacity .2s}
-.toggle-labels .lbl-ng{color:var(--red);opacity:0;transition:opacity .2s}
-.status-toggle.is-ok .lbl-ok{opacity:1}
-.status-toggle.is-issue .lbl-ng{opacity:1}
+.status-toggle .toggle-knob{width:20px;height:20px;border-radius:50%;background:var(--green);position:absolute;left:calc(100% - 23px);transition:all .25s;display:flex;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:900}
+.status-toggle.is-issue .toggle-knob{background:var(--red);left:2px;color:#fff}
 .collapse-arrow{color:var(--dim);font-size:12px;transition:transform .2s;flex-shrink:0}
 .location-block.open .collapse-arrow{transform:rotate(180deg)}
 .loc-body{padding:12px 16px 14px;border-top:1px solid var(--border)}
 .check-items-title{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
-.check-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12px;color:var(--dim);border-bottom:1px solid rgba(255,255,255,.04);line-height:1.5}
+.check-item{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:var(--text);border-bottom:1px solid rgba(255,255,255,.04);line-height:1.5;cursor:pointer;transition:background .15s;border-radius:6px;padding-left:4px}
 .check-item:last-child{border-bottom:none}
-.check-bullet{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px}
+.check-item:hover{background:rgba(255,255,255,.03)}
+.check-item.checked{color:var(--red)}
+.check-item.checked .check-bullet{background:rgba(255,77,109,.2);border-color:var(--red);color:var(--red)}
+.check-item.checked .check-text{text-decoration:none;font-weight:700}
+.check-bullet{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--muted);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all .2s;background:transparent}
 .loc-note-area{margin-top:12px}
 .loc-note-area textarea{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:'Noto Sans TC',sans-serif;font-size:12px;padding:10px 12px;resize:vertical;min-height:70px;outline:none;transition:border-color .2s}
 .loc-note-area textarea:focus{border-color:var(--amber)}
@@ -231,7 +231,7 @@ main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:24px 16px
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
         <input type="text" class="form-control" id="inspectorSearch"
-          placeholder="輸入工號或英文姓名搜尋..."
+          placeholder="輸入工號或姓名搜尋..."
           oninput="filterEmployees('inspector')" onfocus="openDropdown('inspector')" autocomplete="off">
         <div class="dropdown-list" id="inspectorDropdown"></div>
       </div>
@@ -243,7 +243,7 @@ main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:24px 16px
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
         <input type="text" class="form-control" id="lockerSearch"
-          placeholder="輸入工號或姓名搜尋..."
+          placeholder="輸入工號或英文姓名搜尋..."
           oninput="filterEmployees('locker')" onfocus="openDropdown('locker')" autocomplete="off">
         <div class="dropdown-list" id="lockerDropdown"></div>
       </div>
@@ -271,9 +271,8 @@ main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:24px 16px
     <div class="section-sub">請依序確認各檢查地點，點擊右側按鈕切換 OK／異常</div>
     <div class="progress-wrap"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
     <div class="status-bar">
-      <div class="stat-chip"><div class="stat-dot" style="background:var(--green)"></div><span id="statOk">OK: 0</span></div>
+      <div class="stat-chip"><div class="stat-dot" style="background:var(--green)"></div><span id="statOk">正常: 0</span></div>
       <div class="stat-chip"><div class="stat-dot" style="background:var(--red)"></div><span id="statNg">異常: 0</span></div>
-      <div class="stat-chip"><div class="stat-dot" style="background:var(--muted)"></div><span id="statPending">未確認: 0</span></div>
     </div>
     <div id="checklistContainer"></div>
     <div class="notes-card">
@@ -363,7 +362,7 @@ let EMPLOYEES=[
   {id:'C002',name:'蔡佩君',nameEn:'Tsai Pei-Chun'},
 ];
 
-const state={currentStep:1,location:null,inspectorEmployee:null,lockerEmployee:null,checkTimestamp:null,checks:{},placeNotes:{},doorLocked:null,overallNotes:''};
+const state={currentStep:1,location:null,inspectorEmployee:null,lockerEmployee:null,checkTimestamp:null,checks:{},placeNotes:{},subChecks:{},doorLocked:true,overallNotes:''};
 
 document.addEventListener('DOMContentLoaded',()=>{
   startClock();
@@ -464,11 +463,11 @@ function buildChecklist(){
   const container=document.getElementById('checklistContainer');
   container.innerHTML='';
   state.checks={};state.placeNotes={};state.doorLocked=null;
-  ld.places.forEach(p=>{state.checks[p.id]=null;state.placeNotes[p.id]='';});
+  ld.places.forEach(p=>{state.checks[p.id]='ok';state.placeNotes[p.id]='';state.subChecks[p.id]={};});
 
   ld.places.forEach(place=>{
     const block=document.createElement('div');
-    block.className='location-block';block.id=`loc-block-${place.id}`;
+    block.className='location-block loc-ok';block.id=`loc-block-${place.id}`;
     block.innerHTML=`
       <div class="loc-header" onclick="toggleLocBody('${place.id}')">
         <div class="loc-header-left">
@@ -476,16 +475,16 @@ function buildChecklist(){
           <div><div class="loc-header-name">${place.name}</div><div class="loc-header-count">${place.items.length} 項確認項目</div></div>
         </div>
         <div class="loc-status-btn">
+          <span class="status-label is-ok" id="lbl-${place.id}">正常</span>
           <div class="status-toggle" id="toggle-${place.id}" onclick="event.stopPropagation();cycleStatus('${place.id}')">
-            <div class="toggle-labels"><span class="lbl-ng">NG</span><span class="lbl-ok">OK</span></div>
-            <div class="toggle-knob" id="knob-${place.id}">？</div>
+            <div class="toggle-knob" id="knob-${place.id}">✓</div>
           </div>
           <span class="collapse-arrow" id="arrow-${place.id}">▼</span>
         </div>
       </div>
       <div class="loc-body" id="loc-body-${place.id}" style="display:none">
-        <div class="check-items-title">📋 參考確認項目</div>
-        ${place.items.map((item,i)=>`<div class="check-item"><div class="check-bullet">${i+1}</div><span>${item}</span></div>`).join('')}
+        <div class="check-items-title">📋 確認項目（異常請點擊標記）</div>
+        ${place.items.map((item,i)=>`<div class="check-item" id="ci-${place.id}-${i}" onclick="toggleCheckItem('${place.id}',${i})"><div class="check-bullet" id="cb-${place.id}-${i}"></div><span class="check-text">${item}</span></div>`).join('')}
         <div class="loc-note-area"><textarea placeholder="此地點備註 / 異常說明（選填）..." oninput="state.placeNotes['${place.id}']=this.value" id="note-${place.id}"></textarea></div>
       </div>`;
     container.appendChild(block);
@@ -495,9 +494,11 @@ function buildChecklist(){
   doorRow.className='door-lock-row';
   doorRow.innerHTML=`
     <div class="door-lock-label"><span class="icon">🔒</span><span>大門上鎖確認</span></div>
-    <div class="status-toggle" id="toggle-door" onclick="cycleDoor()">
-      <div class="toggle-labels"><span class="lbl-ng">NG</span><span class="lbl-ok">OK</span></div>
-      <div class="toggle-knob" id="knob-door">？</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="status-label is-ok" id="lbl-door">正常</span>
+      <div class="status-toggle" id="toggle-door" onclick="cycleDoor()">
+        <div class="toggle-knob" id="knob-door">✓</div>
+      </div>
     </div>`;
   container.appendChild(doorRow);
   updateStats();
@@ -513,47 +514,57 @@ function toggleLocBody(id){
 
 function cycleStatus(id){
   const c=state.checks[id];
-  const n=c===null?'ok':c==='ok'?'issue':null;
+  const n=c==='ok'?'issue':'ok';
   state.checks[id]=n;updateToggleUI(id,n);updateStats();
 }
 function updateToggleUI(id,val){
   const toggle=document.getElementById(`toggle-${id}`);
   const knob=document.getElementById(`knob-${id}`);
   const block=document.getElementById(`loc-block-${id}`);
+  const lbl=document.getElementById(`lbl-${id}`);
   toggle.classList.remove('is-ok','is-issue');
   if(block)block.classList.remove('loc-ok','loc-issue');
-  if(val==='ok'){toggle.classList.add('is-ok');knob.textContent='✓';if(block)block.classList.add('loc-ok');}
-  else if(val==='issue'){
-    toggle.classList.add('is-issue');knob.textContent='✗';if(block)block.classList.add('loc-issue');
+  if(lbl){lbl.classList.remove('is-ok','is-issue');}
+  if(val==='ok'){
+    toggle.classList.remove('is-issue');
+    knob.textContent='✓';
+    if(block)block.classList.add('loc-ok');
+    if(lbl){lbl.textContent='正常';lbl.classList.add('is-ok');}
+  }else if(val==='issue'){
+    toggle.classList.add('is-issue');
+    knob.textContent='✗';
+    if(block)block.classList.add('loc-issue');
+    if(lbl){lbl.textContent='異常';lbl.classList.add('is-issue');}
     const body=document.getElementById(`loc-body-${id}`);
-    if(body&&body.style.display!=='block'){body.style.display='block';block.classList.add('open');}
-  }else{knob.textContent='？';}
+    if(body&&body.style.display!=='block'){body.style.display='block';if(block)block.classList.add('open');}
+  }
 }
 function cycleDoor(){
-  const c=state.doorLocked;const n=c===null?true:c===true?false:null;state.doorLocked=n;
-  const toggle=document.getElementById('toggle-door');const knob=document.getElementById('knob-door');
-  toggle.classList.remove('is-ok','is-issue');
-  if(n===true){toggle.classList.add('is-ok');knob.textContent='✓';}
-  else if(n===false){toggle.classList.add('is-issue');knob.textContent='✗';}
-  else{knob.textContent='？';}
+  state.doorLocked=!state.doorLocked;
+  const toggle=document.getElementById('toggle-door');
+  const knob=document.getElementById('knob-door');
+  const lbl=document.getElementById('lbl-door');
+  if(state.doorLocked){
+    toggle.classList.remove('is-issue');knob.textContent='✓';
+    if(lbl){lbl.textContent='正常';lbl.className='status-label is-ok';}
+  }else{
+    toggle.classList.add('is-issue');knob.textContent='✗';
+    if(lbl){lbl.textContent='異常';lbl.className='status-label is-issue';}
+  }
   updateStats();
 }
 function updateStats(){
   const vals=Object.values(state.checks);
   const ok=vals.filter(v=>v==='ok').length;
   const ng=vals.filter(v=>v==='issue').length;
-  const pending=vals.filter(v=>v===null).length;
   const total=vals.length;
-  document.getElementById('statOk').textContent=`OK: ${ok}`;
+  document.getElementById('statOk').textContent=`正常: ${ok}`;
   document.getElementById('statNg').textContent=`異常: ${ng}`;
-  document.getElementById('statPending').textContent=`未確認: ${pending}`;
-  document.getElementById('progressBar').style.width=`${Math.round((total-pending)/total*100)}%`;
+  document.getElementById('progressBar').style.width=`${Math.round(ok/total*100)}%`;
 }
 
 async function submitCheck(){
-  const unchecked=Object.entries(state.checks).filter(([,v])=>v===null);
-  if(unchecked.length>0){showToast(`尚有 ${unchecked.length} 個地點未確認狀態`,'err');return;}
-  if(state.doorLocked===null){showToast('請確認大門上鎖狀態','err');return;}
+  // All checks default to 'ok', no null state — no need to validate unchecked
   state.overallNotes=document.getElementById('overallNotes').value;
   const ld=LOCATIONS[state.location];
   const payload={
@@ -593,9 +604,21 @@ function showSummary(payload){
     <span class="ls-badge ${c.status==='ok'?'ok':'ng'}">${c.status==='ok'?'✓ OK':'✗ 異常'}</span></div></div>`).join('');
 }
 
+function toggleCheckItem(placeId,idx){
+  if(!state.subChecks[placeId])state.subChecks[placeId]={};
+  state.subChecks[placeId][idx]=!state.subChecks[placeId][idx];
+  const item=document.getElementById(`ci-${placeId}-${idx}`);
+  const bullet=document.getElementById(`cb-${placeId}-${idx}`);
+  if(state.subChecks[placeId][idx]){
+    item.classList.add('checked');bullet.textContent='✓';
+  }else{
+    item.classList.remove('checked');bullet.textContent='';
+  }
+}
+
 function resetApp(){
   state.location=null;state.inspectorEmployee=null;state.lockerEmployee=null;
-  state.checkTimestamp=null;state.checks={};state.placeNotes={};state.doorLocked=null;state.overallNotes='';
+  state.checkTimestamp=null;state.checks={};state.placeNotes={};state.subChecks={};state.doorLocked=true;state.overallNotes='';
   document.getElementById('inspectorSearch').value='';
   document.getElementById('lockerSearch').value='';
   document.getElementById('inspectorSelected').style.display='none';
